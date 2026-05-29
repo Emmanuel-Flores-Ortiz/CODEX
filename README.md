@@ -1,9 +1,8 @@
-# Proyecto CODEX
+# Proyecto GUILDEX
 
-Su estudio acaba de conseguir un contrato con un publisher independiente.
-El primer entregable no es el juego —es la infraestructura.
-El publisher quiere ver que el equipo puede trabajar de manera profesional antes de darles luz verde al desarrollo.
-Su tarea: construir CODEX — un sistema de registro y verificación de assets para videojuegos, en C++,
-con una infraestructura de repositorio que demuestre que saben lo que están haciendo.
+Desarrollarán en equipo un sistema de gestión de gremio de aventureros en terminal,
+llamado GUILDEX, usando C++. El sistema permite registrar miembros, administrar un
+inventario compartido y gestionar misiones. El proyecto debe desarrollarse de forma
+colaborativa usando Git, con una rama por integrante.
 
 > E. Flores, E. A. Flores, L. Á. Maldonado
