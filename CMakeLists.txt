@@ -8,5 +8,6 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # --- PARCIAL 1 ---
-add_executable(asset "asset.h")
-add_executable(quests quests.cpp)
+# add_executable(asset "asset.h")
+add_executable(quests "quests.cpp")
+add_executable(libreria "guildex.cpp")

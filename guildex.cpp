@@ -1,4 +1,5 @@
 #include "guildex.h"
+#include <string>
 
 struct Quest {
 	std::string lugar;
@@ -6,4 +7,5 @@ struct Quest {
 	int numeroDePersonajes;
 	std::string accion;
 	int recompensa;
+	bool completada;
 };
