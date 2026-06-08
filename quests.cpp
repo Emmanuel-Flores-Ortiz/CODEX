@@ -5,7 +5,8 @@
 // Módulo 3 - Quests
 // Trabajado por eduardo55722
 
-void readQuest(Quest &q);
+void readQuestWithGetline(Quest &q);
+void readQuestWithCin(Quest &q);
 void questManager();
 
 int main() {
@@ -13,7 +14,7 @@ int main() {
     return 0;
 }
 
-void readQuest(Quest &q) {
+void readQuestWithGetline(Quest &q) {
     std::cout << "Nombre de la misi¢n: " << std::endl;
 	std::getline(std::cin, q.nombre);
     std::cout << "Lugar de la misi¢n: " << std::endl;
@@ -30,16 +31,41 @@ void readQuest(Quest &q) {
 	std::cin >> q.completada;
 }
 
+void readQuestWithCin(Quest &q) {
+    std::cout << "Nombre de la misi¢n: " << std::endl;
+	std::cin >> q.nombre;
+	std::cin.ignore();
+    std::cout << "Lugar de la misi¢n: " << std::endl;
+	std::cin >> q.lugar;
+	std::cin.ignore();
+    std::cout << "Quin otorga la misi¢n: " << std::endl;
+	std::cin >> q.personajeInvolucrado;
+	std::cin.ignore();
+    std::cout << "Cu ntos personajes participan: " << std::endl;
+    std::cin >> q.numeroDePersonajes;
+	std::cin.ignore();
+    std::cout << "Descripci¢n: " << std::endl;
+	std::cin >> q.accion;
+	std::cin.ignore();
+    std::cout << "Recompensa (unidades): " << std::endl;
+    std::cin >> q.recompensa;
+	std::cin.ignore();
+    std::cout << "¨Est  completada? (true/false): " << std::endl;
+	std::cin >> q.completada;
+	std::cin.ignore();
+}
+
 void questManager() {
     int n;
     std::cout << "Escribe el n£mero de quests: " << std::endl;
     std::cin >> n;
+	std::cin.ignore();
     auto* q = new Quest[n];
 
     for (int i = 0; i < n; ++i) {
         std::cout << std::endl;
         std::cout << "MISION " << (i + 1) << std::endl;
-		readQuest(*(q + i));
+		readQuestWithCin(*(q + i));
         std::cout << std::endl;
     }
 
@@ -87,22 +113,22 @@ void questManager() {
                 } else {
                     --indice;
                     std::cout << std::endl;
-					readQuest(*(q + indice));
+					readQuestWithCin(*(q + indice));
                     std::cout << std::endl;
                 }
                 break;
             };
             case 3: {
 				// Agregar misión
-                q = static_cast<Quest*>(realloc(q, ++n * sizeof(Quest)));
+                q = new Quest[++n];
                 std::cout << std::endl;
                 std::cout << "MISION " << n << std::endl;
-				readQuest(*(q + (n - 1)));
+				readQuestWithCin(*(q + (n - 1)));
                 std::cout << std::endl;
                 break;
             };
             case 4: {
-				// Eliminar misión
+                // Eliminar misión
                 std::cout << "¨Qu misi¢n se desea eliminar?" << std::endl;
                 std::cin >> indice;
                 if (indice <= 0 || indice > n) {
@@ -115,7 +141,7 @@ void questManager() {
                         }
                     }
                 }
-                q = static_cast<Quest*>(realloc(q, --n * sizeof(Quest)));
+                q = new Quest[--n];
                 break;
             };
             case 5: {
@@ -130,5 +156,5 @@ void questManager() {
         }
         std::cout << std::endl;
     }
-    delete[] q;
+    delete q;
 }
