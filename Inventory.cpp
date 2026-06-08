@@ -1,61 +1,41 @@
 #include <iostream>
 #include <string>
 
-struct Objeto {
+struct Objeto //CADA OBJETO --> Aun no conectados
+{
     int id;
     std::string nombre;
     std::string categoria;
+};
+
+struct Casilla_del_objeto //CADA CASILLA DEL INVENTARIO --> Es el tickect de busqueda
+{
+    int id;
     int cantidad;
 };
 
-struct InventorySlot {
-    int id_Objeto;
-    int cantidad_Objeto = 64;
+struct Inventario //ES EL INVENTARIO COMPLETO
+{
+    Casilla_del_objeto* lista_de_casilla; //Aqui 'lista_de_casilla' tiene acceso por un * a 'Casilla_del objeto' y a su contenido
+    int total_de_casillas;
 };
 
-int cantidad_elementos = 0;
-
-struct Inventario {
-    InventorySlot Inventory[cantidad_elementos]; //Arreglar--> Sigue invetsigando como juntaar minecraft y pokemon
-    int sumador_elementos = 0;
-};
-
-
-void imprimirObjeto(Objeto &objeto);
 
 int main()
 {
-    //CREACION DEL INVENTARIO
-    Inventario inventario;
+    Inventario el_inventario;
+    el_inventario.total_de_casillas;
+    std:: cout << "Ingrese la cantidad de caaillas iniciales: ";
+    std:: cin >> el_inventario.total_de_casillas;
 
-    //CREACION DE 3 OBJETOS
-    Objeto comida;
-    comida.id = 0;
-    comida.nombre = "Carne de Dragron Ahumado";
-    comida.categoria = "Consumible";
-    comida.cantidad = 15;
+    el_inventario.lista_de_casilla = new Casilla_del_objeto[el_inventario.total_de_casillas];
+    el_inventario.lista_de_casilla[0].id = 30;
 
-    Objeto monedas;
-    monedas.id = 1;
-    monedas.nombre = "Moneda de Oro Antiguo";
-    monedas.categoria = "Intercambiable";
-    monedas.cantidad = 30;
 
-    Objeto curacion;
-    curacion.id = 2;
-    curacion.nombre = "Orbe de Almas";
-    curacion.categoria = "Consumible";
-    curacion.cantidad = 5;
+    std::cout << el_inventario.lista_de_casilla[0].id << std::endl;
+    std:: cout << el_inventario.total_de_casillas << std::endl;
 
-    imprimirObjeto(comida);
+    delete [] el_inventario.lista_de_casilla;
 
     return 0;
-}
-
-void imprimirObjeto(Objeto &objeto)
-{
-    std::cout << objeto.id << "\n";
-    std::cout << objeto.nombre << "\n";
-    std::cout << objeto.categoria << "\n";
-    std::cout << objeto.cantidad << "\n";
 }
