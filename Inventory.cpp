@@ -37,6 +37,8 @@ struct Inventario //ES EL INVENTARIO COMPLETO
 void agregarObjeto(Inventario& el_inventario, int &id_objeto, int &cantidad, int &opcion, std::string &x, std::string &y);
 void buscarObjeto(Inventario& el_inventario, int &id_objeto, int &opcion, std::string &x, std::string &y);
 void listadoObjetos(Inventario& el_inventario, int &opcion,  std::string &y);
+void totalObjetos(Inventario& el_inventario, int &opcion, std::string &y);
+
 void imprimirObjeto(Inventario& el_inventario, int &opcion,  std::string &y);
 void menuObjetos(std::string &x, std::string &y, int &opcion);
 
@@ -61,7 +63,8 @@ int main()
             "1. Agregar Objeto\n" <<
             "2. Buscar Objeto\n" <<
             "3. Listar Objeto\n" <<
-            "4. salir\n" << y <<
+            "4. Total de Objetos\n" <<
+            "5. salir\n" << y <<
             "Selecciona una opcion: ";
         std::cin >> opcion_menu;
         std::cout << y;
@@ -88,6 +91,9 @@ int main()
                 listadoObjetos(el_inventario, opcion, y);
                 break;
             case 4:
+                totalObjetos(el_inventario, opcion, y);
+                break;
+            case 5:
                 delete [] el_inventario.lista_de_casilla;
                 std::cout << "FINALIZANDO LA TRANSMISION...\n";
                 exit(0);
@@ -202,6 +208,21 @@ void listadoObjetos(Inventario& el_inventario, int &opcion, std::string &y)
         opcion = i;
         imprimirObjeto(el_inventario, opcion, y);
     }
+}
+
+void totalObjetos(Inventario& el_inventario, int &opcion, std::string &y)
+{
+    int contador_objetos = 0;
+
+    for (int i = 0; i < el_inventario.total_de_casillas; i++)
+    {
+      if (el_inventario.lista_de_casilla[i].id != 0)
+      {
+          contador_objetos++;
+      }
+    }
+
+    std::cout << "Total de objetos dentro del invetario: " << contador_objetos << "\n" << y;
 }
 
 
