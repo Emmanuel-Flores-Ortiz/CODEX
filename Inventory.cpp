@@ -34,16 +34,17 @@ struct Inventario //ES EL INVENTARIO COMPLETO
 };
 
 
-void agregarObjeto(Inventario& el_inventario, int &id_objeto, int &cantidad, int &opcion);
-void buscarObjeto(Inventario& el_inventario, int &id_objeto, int &opcion);
+void agregarObjeto(Inventario& el_inventario, int &id_objeto, int &cantidad, int &opcion, std::string &x);
+void buscarObjeto(Inventario& el_inventario, int &id_objeto, int &opcion, std::string &x);
 void listadoObjetos(Inventario& el_inventario, int &opcion);
 void imprimirObjeto(Inventario& el_inventario, int &opcion);
+void menuObjetos(std::string &x, int &opcion);
 
 
 int main()
 {
     //VARIABLES DECORATIVAS
-    std::string x = "===============================================\n";
+    std::string x = "===========================\n";
 
     //VARIABLES
     int opcion = 0, opcion_menu = 0, id_objeto = 0, cantidad = 0;
@@ -54,98 +55,88 @@ int main()
     el_inventario.total_de_casillas = 3; //Oye memoria, ten tu valor para el tipo de dato que guardaras.
     el_inventario.lista_de_casilla = new Casilla_del_objeto[el_inventario.total_de_casillas]; //Oye memeoria, guardame una pedacito de memoria de este tipo de dato
 
-    el_inventario.lista_de_casilla[0].id = 1;
-    el_inventario.lista_de_casilla[0].cantidad = 10;
-
-    el_inventario.lista_de_casilla[1].id = 2;
-    el_inventario.lista_de_casilla[1].cantidad = 5;
-    listadoObjetos(el_inventario, opcion);
-
     do
     {
         std::cout << x << "       INVENTARIO\n" << x <<
             "1. Agregar Objeto\n" <<
             "2. Buscar Objeto\n" <<
             "3. Listar Objeto\n" <<
-            "4. salir\n\n";
+            "4. salir\n";
         std::cin >> opcion_menu;
 
         switch (opcion_menu)
         {
             case 1:
-                agregarObjeto(el_inventario, id_objeto, cantidad, opcion);
+                agregarObjeto(el_inventario, id_objeto, cantidad, opcion, x);
                 break;
             case 2:
-                buscarObjeto(el_inventario, id_objeto, opcion);
+                buscarObjeto(el_inventario, id_objeto, opcion, x);
                 break;
             case 3:
                 listadoObjetos( el_inventario, opcion);
                 break;
             case 4:
-                std::cout << "QUE TENGA UN EXCELENTE DIA...";
-                break;
+                delete [] el_inventario.lista_de_casilla;
+                std::cout << "FINALIZANDO LA TRANSMISION...\n";
+                exit(0);
             default:
                 std::cout << "ERROR. Opcion Invalida";
                 break;
         }
     } while (opcion != 4);
 
-    do
-    {
-        std::cout << x << "       Seleccione su operacion\n" << x <<
-            "1. Monedas\n" <<
-            "2. Carne de Dragon Ahumado\n";
-        std::cin >> opcion;
-
-        switch (opcion)
-        {
-            case 1:
-                agregarObjeto(el_inventario, id_objeto, cantidad, opcion);
-                break;
-            case 2:
-                buscarObjeto(el_inventario, id_objeto, opcion);
-                break;
-            default:
-                std::cout << "ERROR. Opcion Invalida";
-                break;
-        }
-
-    } while (opcion != 3);
-
-
-    delete [] el_inventario.lista_de_casilla;
     return 0;
 }
 
 
-void agregarObjeto(Inventario& el_inventario, int &id_objeto, int &cantidad, int &opcion)
+void agregarObjeto(Inventario& el_inventario, int &id_objeto, int &cantidad, int &opcion, std::string &x)
     {
-    int max_objetos = 64;
-    id_objeto = opcion;
-    std::cout << "INGRESE LA CANTIDAD A REGISTRAR: \n";
-    std::cin >> cantidad;
+        menuObjetos(x, opcion);
+        int max_objetos = 64;
+        id_objeto = opcion;
+        std::cout << "INGRESE LA CANTIDAD A REGISTRAR: \n";
+        std::cin >> cantidad;
 
-    if (cantidad > max_objetos)
-    {
-        std::cout << "Limite alcanzado\n";
-        return;
-    }
 
+        //RECORRE TODA LA LISTA DE CASILLAS BUSCANDO UN ID SIMILAR AAL ID DEL OBJETO QUE EL USUARIO QUIERE AGREGAR
         for (int i = 0; i < el_inventario.total_de_casillas; i++)
         {
             if (el_inventario.lista_de_casilla[i].id == id_objeto)
             {
-                std::cout << "Se acumularon " << cantidad << " unidades en la casilla " << i << "\n";
+                if (el_inventario.lista_de_casilla[i].cantidad + cantidad > max_objetos)
+                {
+                    std::cout << "Limite de objeto alcanzado\n";
+                    el_inventario.lista_de_casilla[i].cantidad == max_objetos;
+                    return;
+                }
+                else
+                {
+                    el_inventario.lista_de_casilla[i].cantidad += cantidad;
+                    std::cout << "Se acumularon " << cantidad << " unidades en la casilla " << i << "\n";
+                    return;
+                }
+            }
+        }
+        std::cout << "El objeto con ID " << id_objeto << " no esta en el inventario.\n" <<
+            "Agregando al inventario...\n\n";
+
+        //SI EN EL PRIMER FOR NO SE ECONTRO UN SIMILITUD, TOCO GUARDAR ESE OBJETO AGREGADO EN UNA NUEVA CASILLA, SIENDO LA PRIMERA QUE ESTA VACIA (ID DE 0)
+        for (int i = 0; i < el_inventario.total_de_casillas; i++)
+        {
+            if (el_inventario.lista_de_casilla[i].id == 0)
+            {
+                el_inventario.lista_de_casilla[i].id = id_objeto;
+                el_inventario.lista_de_casilla[i].cantidad = cantidad;
+                std::cout << "El objeto fue agregado con exito al inventario.";
                 return;
             }
         }
-
-    std::cout << "El objeto con ID " << id_objeto << " no esta en el inventario.\n";
     }
 
 
-void buscarObjeto(Inventario& el_inventario, int &id_objeto, int &opcion)
+void buscarObjeto(Inventario& el_inventario, int &id_objeto, int &opcion, std::string &x)
 {
+    menuObjetos(x, opcion);
     id_objeto = opcion;
 
     for (int i = 0; i < el_inventario.total_de_casillas; i++)
@@ -181,7 +172,7 @@ void imprimirObjeto(Inventario& el_inventario, int &opcion)
     std::cout << "Cantidad del objeto: " << el_inventario.lista_de_casilla[opcion].cantidad << "\n";
 }
 
-void menuObjetos(std::string &x, int opcion)
+void menuObjetos(std::string &x, int &opcion)
 {
     do
     {
@@ -212,5 +203,5 @@ void menuObjetos(std::string &x, int opcion)
                 std::cout << "ERROR. Opcion Invalida";
                 break;
         }
-    } while (opcion != 6);
-} //Quitar esta funcion... me derroto el inventario
+    } while (opcion > 6);
+}
