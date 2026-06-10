@@ -123,34 +123,50 @@ void agregarObjeto(Inventario& el_inventario, int &id_objeto, int &cantidad, int
         {
             if (el_inventario.lista_de_casilla[i].cantidad + cantidad > max_objetos)
             {
-                std::cout << "ERROR. Limite de objetos alcanzado\n";
+                std::cout << "ERROR. Limite de objetos alcanzado dentro de la casilla: '" << el_inventario.lista_de_casilla[i].id << "' \n" ;
                 el_inventario.lista_de_casilla[i].cantidad = max_objetos;
                 std::cout << "Total : " << el_inventario.lista_de_casilla[i].cantidad << "\n\n";
-                std::cout << el_inventario.lista_de_casilla[i].id;
-
+            }
+            else
+            {
+                el_inventario.lista_de_casilla[i].cantidad += cantidad;
+                std::cout << "Se acumularon " << cantidad << " unidades al objeto '" << universo_de_objetos[id_objeto].nombre << "' \n";
+                return;
+            }
 
                 //DIGAMOS QUE EL JUGADOR FARMEO ACA BIEN INSANO Y CONSIGUIO 64 UNIDADES DEL MISMO OBJETO... QUE PROSIGUE? BUENO:
-                if (el_inventario.lista_de_casilla[i].cantidad == max_objetos)         //ESTE IF VERIFICA QUE LA CASILLA ACTUAL ESTA LLENA.
+                for (int j = 0; j < el_inventario.total_de_casillas; j++)          //ESTE FOR BUSCA UNA CASILLA VACIA Y ASI ASIGNARLE EL NUEVO OBJETO (ID), ESTO SE REPITE ABAJO SI ES LA PRIMERA VEZ QUE SE AGREGA UN OBJETO NUEVO.
                 {
-                    std::cout << "Asignando nueva casilla al objeto '" << universo_de_objetos[id_objeto].nombre << "' \n";
-
-                    for (int j = 0; j < el_inventario.total_de_casillas; j++)          //ESTE FOR BUSCA UNA CASILLA VACIA Y ASI ASIGNARLE EL NUEVO OBJETO (ID), ESTO SE REPITE ABAJO SI ES LA PRIMERA VEZ QUE SE AGREGA UN OBJETO NUEVO.
+                    if (el_inventario.lista_de_casilla[j].id != id_objeto)         //ESTE IF PREGUNTA: El id de la casilla es diferente al id dado? Si?
                     {
-                        if (el_inventario.lista_de_casilla[j].id == 0)
+                        if (el_inventario.lista_de_casilla[j].id == 0)             //ESTE IF PREGUNTA: El id de la casilla ahora es igual a 0? si?
                         {
-                            el_inventario.lista_de_casilla[j].id = id_objeto;
+                            el_inventario.lista_de_casilla[j].id = id_objeto;      //Entonces asigna el nuevo objeto
                             el_inventario.lista_de_casilla[j].cantidad = cantidad;
                             std::cout << "El objeto fue agregado con exito al inventario.\n";
                             return;
                         }
                     }
-                    return;
+                    else
+                    {
+                        if (el_inventario.lista_de_casilla[j].cantidad + cantidad > max_objetos)
+                        {
+                            std::cout << "ERROR. Limite de objetos alcanzado dentro de la casilla: '" << el_inventario.lista_de_casilla[j].id << "' \n" ;
+                            el_inventario.lista_de_casilla[j].cantidad = max_objetos;
+                            std::cout << "Total : " << el_inventario.lista_de_casilla[j].cantidad << "\n\n";
+                        }
+                        else
+                        {
+                            el_inventario.lista_de_casilla[j].cantidad += cantidad;
+                            std::cout << "Se acumularon " << cantidad << " unidades al objeto '" << universo_de_objetos[id_objeto].nombre << "' \n";
+                            return;
+                        }
+                    }
                 }
-                el_inventario.lista_de_casilla[i].cantidad += cantidad;
-                std::cout << "Se acumularon " << cantidad << " unidades al objeto '" << universo_de_objetos[id_objeto].nombre << "' \n";
-                return;
 
-            }
+            std::cout << "Asignando nueva casilla al objeto '" << universo_de_objetos[id_objeto].nombre << "' \n";
+            return;
+
         }
 
 
