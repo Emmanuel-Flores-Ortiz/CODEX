@@ -1,4 +1,3 @@
-#include "guildex.h"
 #ifndef QUESTS_H
 #define QUESTS_H
 

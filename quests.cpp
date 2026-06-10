@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "guildex.h"
+#include "quests.h"
 
 // Módulo 3 - Quests
 // Trabajado por eduardo55722
