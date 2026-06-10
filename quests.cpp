@@ -5,15 +5,6 @@
 // Módulo 3 - Quests
 // Trabajado por eduardo55722
 
-void readQuestWithGetline(Quest &q);
-void readQuestWithCin(Quest &q);
-void questManager();
-
-int main() {
-    questManager();
-    return 0;
-}
-
 void readQuestWithGetline(Quest &q) {
     std::cout << "Nombre de la misi¢n: " << std::endl;
 	std::getline(std::cin, q.nombre);
