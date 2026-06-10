@@ -1,7 +1,7 @@
 #include <iostream>
 #include "guildex.h"
 #include "interface.h"
-#include "quests.h"
+#include "quests.cpp"
 #include "Inventory.cpp"
 #include "members.cpp"
 using namespace std;
