@@ -3,9 +3,6 @@
 #include "guildex.h"
 #include "quests.h"
 
-// Módulo 3 - Quests
-// Trabajado por eduardo55722
-
 void readQuestWithGetline(Quest &q) {
     std::cout << "Nombre de la misi¢n: " << std::endl;
 	std::getline(std::cin, q.nombre);
@@ -19,7 +16,7 @@ void readQuestWithGetline(Quest &q) {
 	std::getline(std::cin, q.accion);
     std::cout << "Recompensa (unidades): " << std::endl;
     std::cin >> q.recompensa;
-    std::cout << "¨Est  completada? (true/false): " << std::endl;
+    std::cout << "¨Est  completada? (s¡ = 1, no = 0): " << std::endl;
 	std::cin >> q.completada;
 }
 
@@ -42,7 +39,7 @@ void readQuestWithCin(Quest &q) {
     std::cout << "Recompensa (unidades): " << std::endl;
     std::cin >> q.recompensa;
 	std::cin.ignore();
-    std::cout << "¨Est  completada? (true/false): " << std::endl;
+    std::cout << "¨Est  completada? (s¡ = 1, no = 0): " << std::endl;
 	std::cin >> q.completada;
 	std::cin.ignore();
 }
@@ -95,6 +92,7 @@ void questManager() {
                     std::cout << "¨Completada?: " << ((*(q + indice)).completada ? "S¡" : "No") << std::endl;
                     std::cout << std::endl;
                 }
+            	break;
             };
             case 2: {
 				// Modificar misión
