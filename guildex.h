@@ -2,6 +2,8 @@
 #ifndef GUILDEX_H
 #define GUILDEX_H
 
+
+
 struct Quest {
 	std::string nombre;
 	std::string lugar;
