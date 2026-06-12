@@ -10,3 +10,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # --- PARCIAL 1 ---
 # add_executable(asset "asset.h")
 add_executable(quests quests.h quests.cpp members.cpp)
+
+# --- PROYECTO GUILDEX ---
+#add_executable(asset "asset.h")
+add_executable(Inventory Inventory.cpp)
