@@ -9,4 +9,3 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # --- PARCIAL 1 ---
 add_executable(asset "asset.h")
-add_executable(Holi "members.cpp")
