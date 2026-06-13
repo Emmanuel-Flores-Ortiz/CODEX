@@ -1,9 +1,26 @@
 #include <iostream>
 #include "guildex.h"
 #include "interface.h"
+
+#include "quests.h"
 using namespace std;
 
 void menuPrincipal() {
+	//miembros
+	int cantidadM=0;
+	int capacidadM=2;
+	Adventurer* roster =new Adventurer[capacidadM];
+
+
+	//inventario
+	Inventario Ninventario;
+	Ninventario.total_de_casillas=0;
+	Ninventario.lista_de_casilla=nullptr;
+	string x_decorativa = "====================================================\n";
+	string y_decorativa = "----------------------------------------------------\n";
+
+	int id_objeto=0;
+	int cantidadobjeto=0;
 
 	int opcion;
 
@@ -19,15 +36,16 @@ void menuPrincipal() {
 		switch(opcion) {
 
 			case 1:
-				registrarMiembro();
+				menuMembers(roster, cantidadM,  capacidadM);
 				break;
 
 			case 2:
-				agregarObjeto();
+				menuInventario(Ninventario, id_objeto, cantidadobjeto, opcion, x_decorativa, y_decorativa);
+
 				break;
 
 			case 3:
-				questManage();
+				questManager();
 				break;
 
 			case 0:
@@ -39,4 +57,8 @@ void menuPrincipal() {
 		}
 
 	} while(opcion != 0);
+	delete [] roster;
+	if (Ninventario.lista_de_casilla != nullptr) {
+		delete [] Ninventario.lista_de_casilla;
+	}
 }

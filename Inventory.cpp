@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 
+
 struct Objeto //CADA OBJETO
 {
     int id;
@@ -27,9 +28,9 @@ struct Casilla_del_objeto //CADA CASILLA DEL INVENTARIO --> Es el tickect de bus
 };
 
 
-struct Inventario //ES EL INVENTARIO COMPLETO
+struct Inventario
 {
-    Casilla_del_objeto* lista_de_casilla; //Aqui 'lista_de_casilla' tiene acceso por un * a 'Casilla_del objeto' y a su contenido
+    Casilla_del_objeto* lista_de_casilla;
     int total_de_casillas;
 };
 
@@ -41,20 +42,21 @@ void totalObjetos(Inventario& el_inventario, int &opcion, std::string &y);
 
 void imprimirObjeto(Inventario& el_inventario, int &opcion,  std::string &y);
 void menuObjetos(std::string &x, std::string &y, int &opcion);
+void menuInventario(Inventario& el_inventario, int &id_objeto, int &cantidad, int &opcion, std::string &x, std::string &y);
 
 
-int main()
+void menuInventario(Inventario& el_inventario, int &id_objeto, int &cantidad, int &opcion, std::string &x, std::string &y)
 {
     //VARIABLES DECORATIVAS
-    std::string x = "====================================================\n", y = "----------------------------------------------------\n";
+
 
     //VARIABLES
-    int opcion = 0, opcion_menu = 0, id_objeto = 0, cantidad = 0;
+    int opcion_menu = 0;
 
 
     //CREACION DEL INVENTARIO
-    Inventario el_inventario;
-    el_inventario.total_de_casillas = 3; //Oye memoria, ten tu valor para el tipo de dato que guardaras.
+
+    el_inventario.total_de_casillas = 36; //Oye memoria, ten tu valor para el tipo de dato que guardaras.
     el_inventario.lista_de_casilla = new Casilla_del_objeto[el_inventario.total_de_casillas]; //Oye memeoria, guardame una pedacito de memoria de este tipo de dato
 
     do
@@ -64,7 +66,7 @@ int main()
             "2. Buscar Objeto\n" <<
             "3. Listar Objeto\n" <<
             "4. Total de Objetos\n" <<
-            "5. salir\n" << y <<
+            "5. Volver al menu principal\n" << y <<
             "Selecciona una opcion: ";
         std::cin >> opcion_menu;
         std::cout << y;
@@ -94,16 +96,15 @@ int main()
                 totalObjetos(el_inventario, opcion, y);
                 break;
             case 5:
-                delete [] el_inventario.lista_de_casilla;
-                std::cout << "FINALIZANDO LA TRANSMISION...\n";
-                exit(0);
+                std::cout << "Regresando al menu principal...\n"<< std::endl;
+                 break;
             default:
-                std::cout << "ERROR. Opcion Invalida\n";
+                std::cout<< "ERROR. Opcion Invalida\n"<< std::endl;
                 break;
         }
-    } while (opcion != 4);
+    } while (opcion_menu != 5);
 
-    return 0;
+
 }
 
 
@@ -136,22 +137,23 @@ void agregarObjeto(Inventario& el_inventario, int &id_objeto, int &cantidad, int
 
                 //DIGAMOS QUE EL JUGADOR FARMEO ACA BIEN INSANO Y CONSIGUIO 64 UNIDADES DEL MISMO OBJETO... QUE PROSIGUE? BUENO:
                 for (int j = 0; j < el_inventario.total_de_casillas; j++)          //ESTE FOR BUSCA UNA CASILLA VACIA Y ASI ASIGNARLE EL NUEVO OBJETO (ID), ESTO SE REPITE ABAJO SI ES LA PRIMERA VEZ QUE SE AGREGA UN OBJETO NUEVO.
-                {
+                {        //= el_inventario.lista_de_casilla[i].id --> Arreglar, esto puede ayudar para que no salga el ==ERROR 2==
+
                     if (el_inventario.lista_de_casilla[j].id != id_objeto)         //ESTE IF PREGUNTA: El id de la casilla es diferente al id dado? Si?
                     {
                         if (el_inventario.lista_de_casilla[j].id == 0)             //ESTE IF PREGUNTA: El id de la casilla ahora es igual a 0? si?
                         {
-                            el_inventario.lista_de_casilla[j].id = id_objeto;      //Entonces asigna el nuevo objeto
+                            el_inventario.lista_de_casilla[j].id = id_objeto;      //Entonces asigna el nuevo objeto a esa casilla con id 0
                             el_inventario.lista_de_casilla[j].cantidad = cantidad;
                             std::cout << "El objeto fue agregado con exito al inventario.\n";
                             return;
                         }
                     }
-                    else
+                    else                                                          //ESTE ESLSE DICE: Si la nueva casilla es igual al id del objeto seleccionado
                     {
-                        if (el_inventario.lista_de_casilla[j].cantidad + cantidad > max_objetos)
+                        if (el_inventario.lista_de_casilla[j].cantidad + cantidad > max_objetos)  //Se repite el proceso de contar si esa nueva casilla alcanzo el limite de objetos
                         {
-                            std::cout << "ERROR. Limite de objetos alcanzado dentro de la casilla: '" << el_inventario.lista_de_casilla[j].id << "' \n" ;
+                            std::cout << "ERROR. Limite de objetos alcanzado dentro de la casilla: '" << el_inventario.lista_de_casilla[j].id + 1 << "' ==ERROR 2==\n" ;
                             el_inventario.lista_de_casilla[j].cantidad = max_objetos;
                             std::cout << "Total : " << el_inventario.lista_de_casilla[j].cantidad << "\n\n";
                         }
@@ -159,14 +161,12 @@ void agregarObjeto(Inventario& el_inventario, int &id_objeto, int &cantidad, int
                         {
                             el_inventario.lista_de_casilla[j].cantidad += cantidad;
                             std::cout << "Se acumularon " << cantidad << " unidades al objeto '" << universo_de_objetos[id_objeto].nombre << "' \n";
-                            return;
                         }
                     }
                 }
 
             std::cout << "Asignando nueva casilla al objeto '" << universo_de_objetos[id_objeto].nombre << "' \n";
             return;
-
         }
 
 
