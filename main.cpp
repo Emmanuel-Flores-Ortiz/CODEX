@@ -5,12 +5,14 @@
 #include <iostream>
 #include "Guildex.h"
 #include "asset.h"
-
-
 #include <cstdlib>
+#include "interface.h"
+
 using namespace std;
 
 int main() {
+    menuPrincipal();
+    return 0;
 
     int cantMiembros = 0;
     int capMiembros = 0;
@@ -34,8 +36,6 @@ int main() {
     }
 
     cout << "Cargando interfaz" << endl;
-
-    menuPrincipal(rosterGremio, cantMiembros, capMiembros);
 
     cout << "\n Liberando los recursos" << endl;
 

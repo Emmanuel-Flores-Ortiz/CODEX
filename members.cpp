@@ -10,15 +10,19 @@ void listarMiembros(Adventurer* roster, int cantidad);
 void menuMembers(Adventurer* &roster, int &cantidad, int &capacidad);
 
 
-void registrarMiembro(Adventurer* &roster, int &cantidad, int &capacidad) {
+void registrarMiembro(
+    Adventurer* &roster, int &cantidad, int &capacidad) {
     if (cantidad == capacidad) {
         capacidad = capacidad * 2;
-        Adventurer* temp = (Adventurer*) realloc(roster, capacidad * sizeof(Adventurer));
-        if (temp == NULL) {
-            std::cout << "Error: no se pudo ampliar la memoria." << std::endl;
-            return;
+
+        Adventurer* nuevoRoster = new Adventurer[capacidad];
+        for (int i=0; i<cantidad; i++) {
+            nuevoRoster[i] = roster[i];
         }
-        roster = temp;
+        if (roster != nullptr) {
+            delete [] roster;
+        }
+        roster = nuevoRoster;
     }
 
     Adventurer nuevo;
