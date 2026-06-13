@@ -71,7 +71,7 @@ Estructura de branches obligatoria:
 | Carlos Manuel Salazar Villa | UI | Programador | carlos.salazar@uniat.edu.mx |
 | Luis Alejandro Maldonado Castillo | Members | Programador | luis.maldonado@uniat.edu.mx |
 | Emmanuel Flores Ortiz | Inventory | Programador | emmanuel.flores@uniat.edu.mx |
-| Jose Alfredo Ortiz Felix | Detalles Extra | Programador | jose.ortiz@uniat.edu.mx |
+| Jose Alfredo Ortiz Felix | Conector de Modulos | Programador | jose.ortiz@uniat.edu.mx |
 | Gilberto Vargas Rodriguez | Ninguna | Apoyo emocional | gilberto.vargas@uniat.edu.mx |
 
 ---
