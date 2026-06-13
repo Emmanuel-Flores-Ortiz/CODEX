@@ -27,9 +27,9 @@ struct Casilla_del_objeto //CADA CASILLA DEL INVENTARIO --> Es el tickect de bus
 };
 
 
-struct Inventario //ES EL INVENTARIO COMPLETO
+struct Inventario
 {
-    Casilla_del_objeto* lista_de_casilla; //Aqui 'lista_de_casilla' tiene acceso por un * a 'Casilla_del objeto' y a su contenido
+    Casilla_del_objeto* lista_de_casilla;
     int total_de_casillas;
 };
 
@@ -41,19 +41,20 @@ void totalObjetos(Inventario& el_inventario, int &opcion, std::string &y);
 
 void imprimirObjeto(Inventario& el_inventario, int &opcion,  std::string &y);
 void menuObjetos(std::string &x, std::string &y, int &opcion);
+void menuInventario(Inventario& el_inventario, int &id_objeto, int &cantidad, int &opcion, std::string &x, std::string &y);
 
 
-int main()
+void menuInventario(Inventario& el_inventario, int &id_objeto, int &cantidad, int &opcion, std::string &x, std::string &y)
 {
     //VARIABLES DECORATIVAS
-    std::string x = "====================================================\n", y = "----------------------------------------------------\n";
+
 
     //VARIABLES
-    int opcion = 0, opcion_menu = 0, id_objeto = 0, cantidad = 0;
+    int opcion_menu = 0;
 
 
     //CREACION DEL INVENTARIO
-    Inventario el_inventario;
+
     el_inventario.total_de_casillas = 36; //Oye memoria, ten tu valor para el tipo de dato que guardaras.
     el_inventario.lista_de_casilla = new Casilla_del_objeto[el_inventario.total_de_casillas]; //Oye memeoria, guardame una pedacito de memoria de este tipo de dato
 
@@ -64,7 +65,7 @@ int main()
             "2. Buscar Objeto\n" <<
             "3. Listar Objeto\n" <<
             "4. Total de Objetos\n" <<
-            "5. salir\n" << y <<
+            "5. Volver al menu principal\n" << y <<
             "Selecciona una opcion: ";
         std::cin >> opcion_menu;
         std::cout << y;
@@ -94,16 +95,15 @@ int main()
                 totalObjetos(el_inventario, opcion, y);
                 break;
             case 5:
-                delete [] el_inventario.lista_de_casilla;
-                std::cout << "FINALIZANDO LA TRANSMISION...\n";
-                exit(0);
+                std::cout << "Regresando al menu principal...\n"<< std::endl;
+                 break;
             default:
-                std::cout << "ERROR. Opcion Invalida\n";
+                std::cout<< "ERROR. Opcion Invalida\n"<< std::endl;
                 break;
         }
-    } while (opcion != 4);
+    } while (opcion_menu != 5);
 
-    return 0;
+
 }
 
 
