@@ -1,9 +1,6 @@
 #include <iostream>
 #include "guildex.h"
 #include "interface.h"
-#include "quests.cpp"
-#include "Inventory.cpp"
-#include "members.cpp"
 using namespace std;
 
 void menuPrincipal() {
