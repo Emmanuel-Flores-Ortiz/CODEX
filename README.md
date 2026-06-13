@@ -1,30 +1,34 @@
 # 🎮 Nombre del Proyecto 🎮
 
-
-## Guildex.
-
+Guildex.
 
 ---
 
 ## ✨ Descripción
 
-> Este proyecto fue desarrollado como parte de una práctica enfocada en los temas vistos en repositorios.
-> Es un sistema de administarcion de un Gremio para videojuego RPG dentro de C++, con una infraestructura de repositorio.
+Este proyecto fue desarrollado como parte de una práctica enfocada en los temas vistos en Repositorios.
+Es un sistema de administración de un Gremio para videojuego RPG dentro de C++, con una infraestructura de repositorio.
 
 ---
 
+## ⬇️ Instalación
+
+El proyecto funciona mediante CMake; se puede compilar en entornos como Visual Studio o CLion.
+
+---
 
 ## 🛠️ Tecnologías Utilizadas
 
 
 * Control de versiones: `Git & GitHub`
-* Creacion de Codigos: `C++`
+* Creacion de Códigos: `C++, CMake`
+* Programación: `CLion, Notepad++`
 
 ---
 
 ## 📂 Estructura del Proyecto
 
-```bash
+```
 Módulo 1 — `members.cpp`
 Gestión del roster de aventureros. Registro, baja, búsqueda y listado de miembros.
 
